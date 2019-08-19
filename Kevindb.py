@@ -92,11 +92,11 @@ class MyClient(discord.Client):
             if message.content.startswith('!roll'):
                 rollan = random.randint(1, 100)
                 if rollan < 31:
-                    string = str(message.author.nick) + ' rolls: ' + str(rollan) + ' <:FeelsBadMan:239512099108159488>'
+                    string = str(message.author.nick) + ' rolls: ' + str(rollan)
                 elif rollan < 70:
-                    string = str(message.author.nick) + ' rolls: ' + str(rollan) + ' <:pepeN:298529329938169856>'
+                    string = str(message.author.nick) + ' rolls: ' + str(rollan)
                 else:
-                    string = str(message.author.nick) + ' rolls: ' + str(rollan) + ' <:FeelsGoodMan:239511865120522240>'
+                    string = str(message.author.nick) + ' rolls: ' + str(rollan)
 
                 await message.channel.send(string)
                 
@@ -137,9 +137,6 @@ class MyClient(discord.Client):
                     strang = 'ans = ' + message.content[4:]
                 elif len(message.content.split(' ')[0]) == 5:
                     strang = 'ans = ' + message.content[5:]
-
-                    # if str(message.author) != 'llynx#4386':
-                    # return
                 try:
                     loc = locals()
                     exec (strang, globals(), loc)
