@@ -32,7 +32,9 @@ class MyClient(discord.Client):
         msgQ = kev_queue.FixedSizeQueue(3)
         
         
-#------------------------------------------------------------------------------------        
+#------------------------------------------------------------------------------------  
+#spam assist
+#if an identical message gets posted 3 times in a row, Kevin repeats
     async def on_message(self,message):
         if message.author.id == self.user.id:
             return
@@ -40,13 +42,16 @@ class MyClient(discord.Client):
         msgQ.push(message.content)
         if msgQ.queue[2] == msgQ.queue[1] and msgQ.queue[2] == msgQ.queue[0]:
             await message.channel.send(message.content)
-
+        
+        #lowercase makes things easier
         message.content = message.content.lower()
         
         global soup
         global linkorder
  
-# ------------------------------------------------------------------------------------          
+# ------------------------------------------------------------------------------------
+# when you don't feel like making your own decisions
+# random yes/no answer, random rating, random choice from given options
         if 'kev' in message.content and '?' in message.content:
             if ' or ' in message.content:
                 kev_ind = message.content.find('kev')
@@ -70,7 +75,7 @@ class MyClient(discord.Client):
                         option = option + word + ' '
 
                 if len(answers) < 2 or '' in answers:
-                    await message.channel.send('Either give me more choices or learn to type')
+                    await message.channel.send('Either give me more choices or learn how to type')
                     return
                 j = random.randint(0, len(answers) - 1)
                 await message.channel.send(answers[j])
@@ -91,15 +96,11 @@ class MyClient(discord.Client):
         elif message.content.startswith('!'):
             if message.content.startswith('!roll'):
                 rollan = random.randint(1, 100)
-                if rollan < 31:
-                    string = str(message.author.nick) + ' rolls: ' + str(rollan)
-                elif rollan < 70:
-                    string = str(message.author.nick) + ' rolls: ' + str(rollan)
-                else:
-                    string = str(message.author.nick) + ' rolls: ' + str(rollan)
+                string = str(message.author.nick) + ' rolls: ' + str(rollan)
 
                 await message.channel.send(string)
                 
+            #html mining
             if message.content.startswith('!yt'):
                 linkorder = 0
                 url = 'http://www.youtube.com/results?search_query=' + str(message.content)[4:] + '&gl=US'
@@ -131,7 +132,8 @@ class MyClient(discord.Client):
                         await message.channel.send(strang)
                         return
 
-        
+            # executes a line in python and posts the return value
+            # mostly a calculator
             if message.content.startswith('!py'):
                 if message.content.split(' ')[0] == '!py':
                     strang = 'ans = ' + message.content[4:]
