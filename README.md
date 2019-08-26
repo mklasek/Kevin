@@ -2,4 +2,5 @@
 Discord bot sanitized
 
 
-Discord bot for our private (international) server made using discord.py API
+Simple Discord bot for our private (international) server made using discord.py API
+Up-to-date and functional
