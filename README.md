@@ -1,7 +1,5 @@
 # Kevin
-Discord bot sanitized
+First old discord bot written in Python using discord.py
 
 
-Simple Discord bot for our private (international) server made using discord.py API
 
-Up-to-date and working
